@@ -17,7 +17,25 @@ jobs:
           name: Push the Docker image to Docker Hub registry
           command: docker image push syamsarosa/circleci-vke:latest
 
+  deploy:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run:
+          name: Decode kubeconfig
+          command: echo "$KUBECONFIG_BASE64" | base64 -d > kubeconfig
+      - run:
+          name: Apply deployment.yaml
+          command: KUBECONFIG=$(pwd)/kubeconfig kubectl apply -f deployment.yaml
+      - run:
+          name: Apply service.yaml
+          command: KUBECONFIG=$(pwd)/kubeconfig kubectl apply -f service.yaml
+
 workflows:
   deploy_circleci_vke:
     jobs:
       - build
+      - deploy:
+          requires:
+            - build
