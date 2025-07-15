@@ -15,5 +15,6 @@ spec:
       containers:
         - name: circleci-vke
           image: syamsarosa/circleci-vke:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
