@@ -19,7 +19,7 @@ jobs:
 
   deploy:
     docker:
-      - image: cimg/base:stable
+      - image: lachlanevenson/k8s-kubectl
     steps:
       - checkout
       - run:
