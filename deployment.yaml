@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: circleci-vke
-          image: syamsarosa/circleci-vke:$CIRCLE_SHA1
+          image: syamsarosa/circleci-vke:$IMAGE_TAG
           imagePullPolicy: Always
           ports:
             - containerPort: 80

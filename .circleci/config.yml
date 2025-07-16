@@ -26,8 +26,10 @@ jobs:
           name: Decode kubeconfig
           command: echo "$KUBECONFIG_BASE64" | base64 -d > kubeconfig
       - run:
-          name: Apply deployment.yaml
-          command: KUBECONFIG=$(pwd)/kubeconfig kubectl apply -f deployment.yaml
+          name: Apply deployment.yaml with dynamic SHA1
+          command: |
+            export IMAGE_TAG=$CIRCLE_SHA1
+            envsubst < deployment.yaml | KUBECONFIG=$(pwd)/kubeconfig kubectl apply -f -
       - run:
           name: Apply service.yaml
           command: KUBECONFIG=$(pwd)/kubeconfig kubectl apply -f service.yaml
