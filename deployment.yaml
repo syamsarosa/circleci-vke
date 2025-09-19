@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: circleci-vke
-          image: docker_username/circleci-vke:$IMAGE_TAG
+          image: syamsarosa/circleci-vke:$IMAGE_TAG
           imagePullPolicy: Always
           ports:
             - containerPort: 80
